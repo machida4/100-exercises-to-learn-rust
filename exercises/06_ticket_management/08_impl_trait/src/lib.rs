@@ -7,6 +7,14 @@ pub struct TicketStore {
     tickets: Vec<Ticket>,
 }
 
+impl<'a> TicketStore {
+    fn in_progress(&'a self) -> impl Iterator<Item = &Ticket> {
+        self.tickets
+            .iter()
+            .filter(|ticket| ticket.status == Status::InProgress)
+    }
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct Ticket {
     pub title: TicketTitle,
